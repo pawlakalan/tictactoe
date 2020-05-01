@@ -1,9 +1,8 @@
-#global variables
-cells = "_________"
-cells_list = [[cells[0], cells[1], cells[2]],
-             [cells[3], cells[4], cells[5]],
-             [cells[6], cells[7], cells[8]]]
+# Tic-Tac-Toe game
+# made by Alan Pawlak 
 
+#global variables
+cells_list = cells_list = [[' ' for j in range(3)] for i in range(3)]
 winner = ''
 turn = 'X'
 
@@ -29,45 +28,50 @@ def move():
     global turn
     global cells_list
     try:
-        a,b = input("Enter the coordinates: ").split()
+        print(turn + "'s turn")
+        a,b = input("Enter the coordinates(separated by space): ").split()
         if (int(a) > 3 or int(a) < 1) or (int(b) > 3 or int(b) < 1):
             print("Coordinates should be from 1 to 3!")
-        elif cells_list[int(b) * -1][int(a)-1] == '_':
+        elif cells_list[int(b) * -1][int(a)-1] == ' ':
             cells_list[int(b) * -1][int(a)-1] = turn
             if turn == 'X':
                 turn = 'O'
             else:
                 turn = 'X'
-        elif cells_list[int(b) * -1][int(a)-1] != '_':
+        elif cells_list[int(b) * -1][int(a)-1] != ' ':
             print("This cell is occupied! Choose another one")
     except ValueError:
         print("You should enter numbers!")
 
 # main loop
+print('''
+-------------
+|Tic-Tac-Toe|
+-------------''')
 while winner == '':
     x_counter = 0
     o_counter = 0
     print_board()
     move()
-    if cells_list[0][0] == cells_list[0][1] == cells_list[0][2] !='_': # across the top
+    if cells_list[0][0] == cells_list[0][1] == cells_list[0][2] !=' ': # across the top
         winner += cells_list[0][0]
-    if cells_list[1][0] == cells_list[1][1] == cells_list[1][2] !='_': # across the middle
+    if cells_list[1][0] == cells_list[1][1] == cells_list[1][2] !=' ': # across the middle
         winner += cells_list[1][0]
-    if cells_list[2][0] == cells_list[2][1] == cells_list[2][2] !='_': # across the bottom
+    if cells_list[2][0] == cells_list[2][1] == cells_list[2][2] !=' ': # across the bottom
         winner += cells_list[2][0]
-    if cells_list[0][0] == cells_list[1][0] == cells_list[2][0] !='_': # down the left
+    if cells_list[0][0] == cells_list[1][0] == cells_list[2][0] !=' ': # down the left
         winner += cells_list[0][0]
-    if cells_list[0][1] == cells_list[1][1] == cells_list[2][1] !='_': # down the middle
+    if cells_list[0][1] == cells_list[1][1] == cells_list[2][1] !=' ': # down the middle
         winner += cells_list[0][1]
-    if cells_list[0][2] == cells_list[1][2] == cells_list[2][2] !='_': # down the right
+    if cells_list[0][2] == cells_list[1][2] == cells_list[2][2] !=' ': # down the right
         winner += cells_list[0][2]
-    if cells_list[0][0] == cells_list[1][1] == cells_list[2][2] !='_': # first diagonal
+    if cells_list[0][0] == cells_list[1][1] == cells_list[2][2] !=' ': # first diagonal
         winner += cells_list[0][0]
-    if cells_list[0][2] == cells_list[1][1] == cells_list[2][0] !='_': # second diagonal
+    if cells_list[0][2] == cells_list[1][1] == cells_list[2][0] !=' ': # second diagonal
         winner += cells_list[0][2]
     
     # draw if there are no empty fields and no winner
-    if not any('_' in rows for rows in cells_list):
+    if not any(' ' in rows for rows in cells_list):
         print_board() 
         print("Draw")
         break
